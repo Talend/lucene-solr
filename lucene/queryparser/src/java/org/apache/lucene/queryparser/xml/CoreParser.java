@@ -133,6 +133,10 @@ public class CoreParser implements QueryBuilder {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     DocumentBuilder db = null;
     try {
+      //protect from XXE attacks
+      dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
       db = dbf.newDocumentBuilder();
     }
     catch (Exception se) {
